@@ -20,24 +20,41 @@ function PedidosPost() {
 
         try {
 
-            const token =
-                localStorage.getItem(
-                    "token"
-                );
+            if (!idcliente || !idproducto || !cantidad) {
+
+                alert("Todos los campos son obligatorios");
+
+                return;
+            }
+
+            if (parseInt(idcliente) <= 0) {
+
+                alert("El ID del cliente debe ser mayor a 0");
+
+                return;
+            }
+
+            if (parseInt(idproducto) <= 0) {
+
+                alert("El ID del producto debe ser mayor a 0");
+
+                return;
+            }
+
+            if (parseInt(cantidad) <= 0) {
+
+                alert("La cantidad debe ser mayor a 0");
+
+                return;
+            }
 
             const resultado =
                 await crearPedido(
                     {
-                        idcliente:
-                            parseInt(idcliente),
-
-                        idproducto:
-                            parseInt(idproducto),
-
-                        cantidad:
-                            parseInt(cantidad)
-                    },
-                    token
+                        idcliente: parseInt(idcliente),
+                        idproducto: parseInt(idproducto),
+                        cantidad: parseInt(cantidad)
+                    }
                 );
 
             alert(
@@ -57,11 +74,8 @@ function PedidosPost() {
             );
 
             alert(
-                JSON.stringify(
-                    error,
-                    null,
-                    2
-                )
+                error.message ||
+                "Error al crear pedido"
             );
         }
     };

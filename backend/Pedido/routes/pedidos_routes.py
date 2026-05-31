@@ -306,6 +306,9 @@ def create(p: Pedido, user=Depends(verificar_token)):
 
     if respuesta_patch.status_code != 200:
 
+        print("Respuesta PATCH inventario:", respuesta_patch.status_code)
+        print(respuesta_patch.text)
+
         raise HTTPException(
             status_code=400,
             detail="No se pudo actualizar inventario"
