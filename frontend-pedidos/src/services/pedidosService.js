@@ -1,6 +1,10 @@
 const API_URL = import.meta.env.VITE_PEDIDOS_API_URL || "http://127.0.0.1:8003";
 
 
+// ======================================================
+// TOKEN
+// ======================================================
+
 function getToken() {
 
     return localStorage.getItem("token_pedidos");
@@ -27,7 +31,7 @@ async function leerRespuesta(response) {
 // LOGIN
 // ======================================================
 
-async function login() {
+export async function loginPedidos() {
 
     const response = await fetch(`${API_URL}/login`, {
         method: "POST",
@@ -55,7 +59,7 @@ async function login() {
         data.access_token
     );
 
-    return data;
+    return data.access_token;
 }
 
 
@@ -63,7 +67,7 @@ async function login() {
 // GET PEDIDOS
 // ======================================================
 
-async function getPedidos() {
+export async function obtenerPedidos() {
 
     const response = await fetch(`${API_URL}/v1/pedidos`, {
         method: "GET",
@@ -91,7 +95,7 @@ async function getPedidos() {
 // CREATE PEDIDO
 // ======================================================
 
-async function createPedido(pedido) {
+export async function crearPedido(pedido) {
 
     const response = await fetch(`${API_URL}/v1/pedidos`, {
         method: "POST",
@@ -129,7 +133,7 @@ async function createPedido(pedido) {
 // GET PEDIDOS V2
 // ======================================================
 
-async function getPedidosV2() {
+export async function obtenerPedidosV2() {
 
     const response = await fetch(`${API_URL}/v2/pedidos`, {
         method: "GET",
@@ -153,9 +157,13 @@ async function getPedidosV2() {
 }
 
 
+// ======================================================
+// EXPORT DEFAULT OPCIONAL
+// ======================================================
+
 export default {
-    login,
-    getPedidos,
-    createPedido,
-    getPedidosV2
+    loginPedidos,
+    obtenerPedidos,
+    crearPedido,
+    obtenerPedidosV2
 };
