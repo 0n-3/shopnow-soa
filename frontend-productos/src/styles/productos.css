@@ -1,0 +1,476 @@
+body{
+    margin:0;
+    padding:0;
+
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+/* ===================================================== */
+/* LOGIN */
+/* ===================================================== */
+
+.productos-container{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#e0f2fe;
+}
+
+.login-card{
+    width:400px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.login-card h1{
+    text-align:center;
+
+    color:#0284c7;
+}
+
+.login-card h2{
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:20px;
+}
+
+.login-card input{
+    padding:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
+}
+
+.login-card button{
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0284c7;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+.login-card button:hover{
+    background:#0369a1;
+}
+
+.credenciales-box{
+    margin-top:10px;
+
+    background:#dbeafe;
+
+    border:1px solid #93c5fd;
+
+    padding:15px;
+
+    border-radius:12px;
+}
+
+
+/* ===================================================== */
+/* DASHBOARD */
+/* ===================================================== */
+
+.dashboard-container{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#e0f2fe;
+}
+
+.dashboard-card{
+    width:700px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+}
+
+.dashboard-card h1{
+    text-align:center;
+
+    color:#0284c7;
+
+    margin-bottom:10px;
+}
+
+.dashboard-card h2{
+    text-align:center;
+
+    margin-bottom:40px;
+
+    color:#555;
+}
+
+.endpoint-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.endpoint-btn{
+    padding:40px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#0284c7;
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.endpoint-btn:hover{
+    background:#0369a1;
+
+    transform:scale(1.03);
+}
+
+
+/* ===================================================== */
+/* GET */
+/* ===================================================== */
+
+.get-container{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#e0f2fe;
+
+    padding:40px;
+
+    box-sizing:border-box;
+}
+
+.get-card{
+    width:100%;
+
+    max-width:1200px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+}
+
+.get-card h1{
+    color:#0284c7;
+
+    margin-bottom:30px;
+
+    text-align:center;
+}
+
+table{
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+th{
+    background:#0284c7;
+
+    color:white;
+
+    padding:15px;
+}
+
+td{
+    padding:15px;
+
+    border-bottom:1px solid #ddd;
+
+    text-align:center;
+}
+
+tr:hover{
+    background:#f9f9f9;
+}
+
+
+/* ===================================================== */
+/* POST */
+/* ===================================================== */
+
+.post-container{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#e0f2fe;
+}
+
+.post-card{
+    width:500px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.post-card h1{
+    text-align:center;
+
+    color:#0284c7;
+
+    margin-bottom:20px;
+}
+
+.post-card input{
+    padding:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
+}
+
+.post-card button{
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0284c7;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+.post-card button:hover{
+    background:#0369a1;
+}
+
+
+/* ===================================================== */
+/* PATCH */
+/* ===================================================== */
+
+.patch-container{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#e0f2fe;
+}
+
+.patch-card{
+    width:500px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.patch-card h1{
+    text-align:center;
+
+    color:#0284c7;
+}
+
+.patch-card input{
+    padding:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
+}
+
+.patch-card button{
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0284c7;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+
+/* ===================================================== */
+/* DELETE */
+/* ===================================================== */
+
+.delete-container{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#e0f2fe;
+}
+
+.delete-card{
+    width:400px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0px 5px 20px rgba(0,0,0,0.2);
+}
+
+.delete-card h1{
+    text-align:center;
+
+    color:#0284c7;
+
+    margin-bottom:20px;
+}
+
+.delete-card input{
+    width:100%;
+
+    padding:15px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    margin-bottom:15px;
+
+    box-sizing:border-box;
+}
+
+.delete-card button{
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0284c7;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    margin-top:10px;
+}
+
+.delete-card button:hover{
+    background:#0369a1;
+}
+
+
+/* ===================================================== */
+/* BOTON VOLVER */
+/* ===================================================== */
+
+.back-btn{
+    width:150px;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#444 !important;
+
+    color:white;
+
+    cursor:pointer;
+
+    margin-bottom:20px;
+}
+
+.back-btn:hover{
+    background:#222 !important;
+}
