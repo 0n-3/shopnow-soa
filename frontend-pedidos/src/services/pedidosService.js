@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8003";
+const API_URL = import.meta.env.VITE_PEDIDOS_API_URL || "http://127.0.0.1:8003";
 
 
 function getToken() {
@@ -6,6 +6,26 @@ function getToken() {
     return localStorage.getItem("token_pedidos");
 }
 
+
+// ======================================================
+// LEER RESPUESTA
+// ======================================================
+
+async function leerRespuesta(response) {
+
+    const contentType = response.headers.get("content-type");
+
+    if (contentType && contentType.includes("application/json")) {
+        return await response.json();
+    }
+
+    return await response.text();
+}
+
+
+// ======================================================
+// LOGIN
+// ======================================================
 
 async function login() {
 
@@ -20,7 +40,15 @@ async function login() {
         })
     });
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al iniciar sesión"
+        );
+    }
 
     localStorage.setItem(
         "token_pedidos",
@@ -31,6 +59,10 @@ async function login() {
 }
 
 
+// ======================================================
+// GET PEDIDOS
+// ======================================================
+
 async function getPedidos() {
 
     const response = await fetch(`${API_URL}/v1/pedidos`, {
@@ -40,18 +72,24 @@ async function getPedidos() {
         }
     });
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
 
     if (!response.ok) {
 
         throw new Error(
-            data.detail || "Error al obtener pedidos"
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener pedidos"
         );
     }
 
     return data;
 }
 
+
+// ======================================================
+// CREATE PEDIDO
+// ======================================================
 
 async function createPedido(pedido) {
 
@@ -64,17 +102,19 @@ async function createPedido(pedido) {
         body: JSON.stringify(pedido)
     });
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
 
     if (!response.ok) {
 
-        if (typeof data.detail === "string") {
+        if (typeof data === "string") {
+            throw new Error(data);
+        }
 
+        if (typeof data.detail === "string") {
             throw new Error(data.detail);
         }
 
         if (Array.isArray(data.detail)) {
-
             throw new Error("Datos inválidos");
         }
 
@@ -85,6 +125,10 @@ async function createPedido(pedido) {
 }
 
 
+// ======================================================
+// GET PEDIDOS V2
+// ======================================================
+
 async function getPedidosV2() {
 
     const response = await fetch(`${API_URL}/v2/pedidos`, {
@@ -94,12 +138,14 @@ async function getPedidosV2() {
         }
     });
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
 
     if (!response.ok) {
 
         throw new Error(
-            data.detail || "Error al obtener pedidos v2"
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener pedidos v2"
         );
     }
 
