@@ -1,4 +1,20 @@
-const API = "http://127.0.0.1:8002";
+const API = import.meta.env.VITE_PRODUCTOS_API_URL || "http://127.0.0.1:8002";
+
+
+// =====================================================
+// LEER RESPUESTA
+// =====================================================
+
+const leerRespuesta = async (response) => {
+
+    const contentType = response.headers.get("content-type");
+
+    if (contentType && contentType.includes("application/json")) {
+        return await response.json();
+    }
+
+    return await response.text();
+};
 
 
 // =====================================================
@@ -23,7 +39,15 @@ export const loginProductos = async () => {
         }
     );
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al iniciar sesión"
+        );
+    }
 
     return data.access_token;
 };
@@ -44,7 +68,17 @@ export const obtenerProductos = async (token) => {
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener productos"
+        );
+    }
+
+    return data;
 };
 
 
@@ -68,10 +102,23 @@ export const crearProducto = async (producto, token) => {
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al crear producto"
+        );
+    }
+
+    return data;
 };
 
+
+// =====================================================
 // PATCH PRODUCTO
+// =====================================================
 
 export const actualizarProducto = async (
     idproducto,
@@ -93,10 +140,23 @@ export const actualizarProducto = async (
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al actualizar producto"
+        );
+    }
+
+    return data;
 };
 
+
+// =====================================================
 // GET ONE PRODUCTO
+// =====================================================
 
 export const obtenerProducto = async (
     idproducto,
@@ -112,11 +172,23 @@ export const obtenerProducto = async (
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener producto"
+        );
+    }
+
+    return data;
 };
 
 
+// =====================================================
 // DELETE PRODUCTO
+// =====================================================
 
 export const eliminarProducto = async (
     idproducto,
@@ -134,5 +206,15 @@ export const eliminarProducto = async (
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al eliminar producto"
+        );
+    }
+
+    return data;
 };
