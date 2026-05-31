@@ -9,8 +9,24 @@ const consumir = require("./consumer");
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+
+
+// ======================================================
+// CORS
+// ======================================================
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(",").map(origin => origin.trim())
+    : [
+        "http://localhost:5175",
+        "http://127.0.0.1:5175"
+    ];
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
 
 
 // ======================================================
@@ -60,7 +76,6 @@ app.listen(PORT, "0.0.0.0", () => {
 
     console.log(`✔ inventario corriendo en puerto ${PORT}`);
 
-    // RabbitMQ consumer activo
     consumir();
 
 });
