@@ -1,4 +1,20 @@
-const API = "http://127.0.0.1:8001";
+const API = import.meta.env.VITE_CLIENTES_API_URL || "http://127.0.0.1:8001";
+
+
+// =====================================================
+// LEER RESPUESTA
+// =====================================================
+
+const leerRespuesta = async (response) => {
+
+    const contentType = response.headers.get("content-type");
+
+    if (contentType && contentType.includes("application/json")) {
+        return await response.json();
+    }
+
+    return await response.text();
+};
 
 
 // =====================================================
@@ -23,7 +39,15 @@ export const loginClientes = async () => {
         }
     );
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al iniciar sesión"
+        );
+    }
 
     return data.access_token;
 };
@@ -44,7 +68,17 @@ export const obtenerClientes = async (token) => {
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener clientes"
+        );
+    }
+
+    return data;
 };
 
 
@@ -68,7 +102,17 @@ export const crearCliente = async (cliente, token) => {
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al crear cliente"
+        );
+    }
+
+    return data;
 };
 
 
@@ -96,7 +140,17 @@ export const actualizarCliente = async (
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al actualizar cliente"
+        );
+    }
+
+    return data;
 };
 
 
@@ -120,5 +174,15 @@ export const eliminarCliente = async (
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al eliminar cliente"
+        );
+    }
+
+    return data;
 };
