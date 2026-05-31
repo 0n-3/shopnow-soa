@@ -1,4 +1,20 @@
-const API = "http://127.0.0.1:8004";
+const API = import.meta.env.VITE_INVENTARIO_API_URL || "http://127.0.0.1:8004";
+
+
+// ======================================================
+// LEER RESPUESTA
+// ======================================================
+
+const leerRespuesta = async (response) => {
+
+    const contentType = response.headers.get("content-type");
+
+    if (contentType && contentType.includes("application/json")) {
+        return await response.json();
+    }
+
+    return await response.text();
+};
 
 
 // ======================================================
@@ -23,7 +39,15 @@ export const loginInventario = async () => {
         }
     );
 
-    const data = await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al iniciar sesión"
+        );
+    }
 
     return data.access_token;
 };
@@ -44,7 +68,17 @@ export const obtenerInventario = async (token) => {
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener inventario"
+        );
+    }
+
+    return data;
 };
 
 
@@ -63,7 +97,17 @@ export const obtenerInventarioProducto = async (id, token) => {
         }
     );
 
-    return await response.json();
+    const data = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof data === "string"
+                ? data
+                : data.detail || data.error || "Error al obtener inventario del producto"
+        );
+    }
+
+    return data;
 };
 
 
@@ -87,8 +131,19 @@ export const crearInventario = async (data, token) => {
         }
     );
 
-    return await response.json();
+    const respuesta = await leerRespuesta(response);
+
+    if (!response.ok) {
+        throw new Error(
+            typeof respuesta === "string"
+                ? respuesta
+                : respuesta.detail || respuesta.error || "Error al crear inventario"
+        );
+    }
+
+    return respuesta;
 };
+
 
 // ======================================================
 // PATCH INVENTARIO
@@ -98,27 +153,35 @@ export const actualizarInventario = async (
     id,
     data,
     token
-)=>{
+) => {
 
     const response = await fetch(
-
         `${API}/v1/inventario/${id}`,
-
         {
-            method:"PATCH",
+            method: "PATCH",
 
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":`Bearer ${token}`
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
 
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         }
     );
 
-    return await response.json();
+    const respuesta = await leerRespuesta(response);
 
+    if (!response.ok) {
+        throw new Error(
+            typeof respuesta === "string"
+                ? respuesta
+                : respuesta.detail || respuesta.error || "Error al actualizar inventario"
+        );
+    }
+
+    return respuesta;
 };
+
 
 // ======================================================
 // DELETE INVENTARIO
@@ -127,26 +190,28 @@ export const actualizarInventario = async (
 export const eliminarInventario = async (
     id,
     token
-)=>{
+) => {
 
-    const response=await fetch(
-
+    const response = await fetch(
         `${API}/v1/inventario/${id}`,
-
         {
+            method: "DELETE",
 
-            method:"DELETE",
-
-            headers:{
-
-                "Authorization":
-                `Bearer ${token}`
-
+            headers: {
+                "Authorization": `Bearer ${token}`
             }
-
         }
     );
 
-    return await response.json();
+    const respuesta = await leerRespuesta(response);
 
+    if (!response.ok) {
+        throw new Error(
+            typeof respuesta === "string"
+                ? respuesta
+                : respuesta.detail || respuesta.error || "Error al eliminar inventario"
+        );
+    }
+
+    return respuesta;
 };
