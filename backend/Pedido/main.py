@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -16,8 +18,15 @@ app = FastAPI(title="Pedidos Service")
 # CORS
 # ======================================================
 
+ALLOWED_ORIGINS = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:5176,http://127.0.0.1:5176"
+)
+
 origins = [
-    "http://localhost:5176"
+    origin.strip()
+    for origin in ALLOWED_ORIGINS.split(",")
+    if origin.strip()
 ]
 
 app.add_middleware(
