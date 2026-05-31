@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-python-jose
-pika
 psycopg2-binary
 python-dotenv
+python-jose
+requests
