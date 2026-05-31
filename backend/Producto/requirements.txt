@@ -4,3 +4,4 @@ psycopg2-binary
 python-jose
 pika
 python-dotenv
+requests
